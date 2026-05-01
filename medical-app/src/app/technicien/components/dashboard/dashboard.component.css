@@ -1,0 +1,380 @@
+.technicien-dashboard {
+  padding: 1.5rem;
+}
+
+.technicien-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.dual-upload-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.upload-box {
+  border: 2px dashed var(--oxalia-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--oxalia-transition);
+  background: var(--oxalia-bg);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-box:hover {
+  border-color: var(--oxalia-primary);
+  background: white;
+}
+
+.upload-box.active {
+  border-style: solid;
+  border-color: var(--oxalia-primary);
+  background: white;
+}
+
+.upload-placeholder i {
+  font-size: 2rem;
+  color: var(--oxalia-text-muted);
+  margin-bottom: 1rem;
+}
+
+.img-preview {
+  max-width: 100%;
+  max-height: 180px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.patient-form label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--oxalia-text-muted);
+  margin-bottom: 0.4rem;
+}
+
+/* Upload Zone */
+.upload-zone {
+  border: 2px dashed var(--oxalia-border);
+  border-radius: var(--oxalia-radius-lg);
+  padding: 3rem 2rem;
+  text-align: center;
+  transition: var(--oxalia-transition);
+  cursor: pointer;
+  background: var(--oxalia-bg);
+}
+
+.upload-zone:hover,
+.upload-zone.active {
+  border-color: var(--oxalia-primary);
+  background: var(--oxalia-primary-light);
+}
+
+.upload-icon-pulse {
+  width: 80px;
+  height: 80px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2rem;
+  color: var(--oxalia-primary);
+  box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+  animation: pulse-blue 2s infinite;
+}
+
+@keyframes pulse-blue {
+  0% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 20px rgba(59, 130, 246, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
+
+.upload-content h4 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.upload-content p {
+  color: var(--oxalia-text-muted);
+  margin-bottom: 1rem;
+}
+
+.upload-content p span {
+  color: var(--oxalia-primary);
+  font-weight: 600;
+}
+
+.upload-content .formats {
+  font-size: 0.75rem;
+  color: var(--oxalia-text-muted);
+  opacity: 0.7;
+}
+
+/* Tasks Preview */
+.tasks-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.task-item-mini {
+  width: 100px;
+  background: white;
+  padding: 0.5rem;
+  border-radius: 12px;
+  box-shadow: var(--oxalia-shadow-sm);
+}
+
+.task-item-mini img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.task-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.7rem;
+}
+
+.task-info .filename {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--oxalia-primary);
+}
+
+.status-tag.done {
+  color: var(--oxalia-success);
+}
+
+.add-more {
+  width: 100px;
+  height: 100px;
+  border: 2px dashed var(--oxalia-border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--oxalia-text-muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: var(--oxalia-transition);
+}
+
+.add-more:hover {
+  background: white;
+  border-color: var(--oxalia-primary);
+  color: var(--oxalia-primary);
+}
+
+/* Simulation Toggle */
+.simulation-toggle {
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-info .label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #92400e;
+}
+
+.toggle-info .desc {
+  font-size: 0.75rem;
+  color: #b45309;
+}
+
+/* Recent Activity List */
+.recent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.recent-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 12px;
+  background: var(--oxalia-bg);
+  transition: var(--oxalia-transition);
+}
+
+.recent-item:hover {
+  background: white;
+  box-shadow: var(--oxalia-shadow-md);
+  transform: translateX(4px);
+}
+
+.patient-info-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.p-avatar {
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--oxalia-text-muted);
+}
+
+.p-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-name {
+  font-weight: 600;
+  color: var(--oxalia-heading);
+}
+
+.p-id {
+  font-size: 0.75rem;
+  color: var(--oxalia-text-muted);
+}
+
+.item-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.item-meta .date {
+  font-size: 0.75rem;
+  color: var(--oxalia-text-muted);
+}
+
+/* Switch Styles */
+.oxalia-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.oxalia-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #d1d5db;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked+.slider {
+  background-color: var(--oxalia-primary);
+}
+
+input:checked+.slider:before {
+  transform: translateX(18px);
+}
+
+@media (max-width: 1024px) {
+  .technicien-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.quality-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #10b981;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 4px 8px rgba(16, 185, 129, 0.2);
+    z-index: 5;
+}
+
+.patient-icon-circle {
+    width: 40px;
+    height: 40px;
+    background: var(--oxalia-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--oxalia-primary);
+    font-size: 1rem;
+}
+
+.bg-light {
+    background: #f8fafc;
+}

@@ -1,0 +1,44 @@
+<div class="help-page" [class.light-mode]="isLightMode">
+  <header class="help-header">
+    <h1>Aide des boutons</h1>
+    <div class="header-actions">
+      <button type="button" class="theme-toggle" (click)="toggleTheme()">
+        {{ isLightMode ? 'Dark mode' : 'Light mode' }}
+      </button>
+      <a routerLink="/auth/login">Retour connexion</a>
+    </div>
+  </header>
+
+  <section class="help-grid">
+    <article class="help-card">
+      <h2>Bouton Admin</h2>
+      <p>Connecte en tant qu'administrateur.</p>
+      <ul>
+        <li>Gestion des utilisateurs</li>
+        <li>Suivi global du systeme</li>
+        <li>Statistiques et supervision</li>
+      </ul>
+    </article>
+
+    <article class="help-card">
+      <h2>Bouton Medecin</h2>
+      <p>Connecte en tant que medecin radiologue.</p>
+      <ul>
+        <li>Consulte les analyses IA</li>
+        <li>Accepte ou refuse le resultat</li>
+        <li>Ajoute le rapport medical final</li>
+      </ul>
+    </article>
+
+    <article class="help-card">
+      <h2>Bouton Technicien</h2>
+      <p>Connecte en tant que technicien radiologue.</p>
+      <ul>
+        <li>Importe les images medicales</li>
+        <li>Lance le traitement IA</li>
+        <li>Transmet les cas au medecin</li>
+      </ul>
+    </article>
+  </section>
+</div>
+

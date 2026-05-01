@@ -1,0 +1,200 @@
+<div class="admin-dashboard animate-fade">
+  <!-- Page Header -->
+  <header class="page-header mb-4">
+    <div class="header-left">
+      <h1 class="page-title">Dashboard Admin</h1>
+      <p class="page-subtitle">Supervision de la plateforme et gestion des utilisateurs.</p>
+    </div>
+    <div class="header-actions">
+      <div class="tabs-minimal">
+        <button [class.active]="activeView === 'OVERVIEW'" (click)="activeView = 'OVERVIEW'">Vue d'ensemble</button>
+        <button [class.active]="activeView === 'USERS'" (click)="activeView = 'USERS'">Utilisateurs</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-layout" *ngIf="activeView === 'OVERVIEW'">
+    <!-- Summary Stats -->
+    <div class="stats-grid mb-5">
+      <div class="oxalia-card stat-card">
+        <div class="stat-icon blue"><i class="fas fa-users"></i></div>
+        <div class="stat-details">
+          <span class="stat-value">128</span>
+          <span class="stat-label">Utilisateurs</span>
+        </div>
+        <div class="stat-trend up" style="color: var(--oxalia-success); font-size: 0.8rem; font-weight: 600; margin-left: auto;">+12 ce mois</div>
+      </div>
+      <div class="oxalia-card stat-card">
+        <div class="stat-icon green"><i class="fas fa-user-md"></i></div>
+        <div class="stat-details">
+          <span class="stat-value">45</span>
+          <span class="stat-label">Médecins</span>
+        </div>
+      </div>
+      <div class="oxalia-card stat-card">
+        <div class="stat-icon purple"><i class="fas fa-desktop"></i></div>
+        <div class="stat-details">
+          <span class="stat-value">68</span>
+          <span class="stat-label">Techniciens</span>
+        </div>
+      </div>
+      <div class="oxalia-card stat-card">
+        <div class="stat-icon orange"><i class="fas fa-chart-line"></i></div>
+        <div class="stat-details">
+          <span class="stat-value">2,543</span>
+          <span class="stat-label">Analyses totales</span>
+        </div>
+        <div class="stat-trend up" style="color: var(--oxalia-success); font-size: 0.8rem; font-weight: 600; margin-left: auto;">+18%</div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="charts-row">
+      <div class="oxalia-card chart-card flex-2">
+        <div class="card-header-row mb-4">
+          <h3>Analyses par mois</h3>
+          <div class="chart-period">Janv - Juin</div>
+        </div>
+        <div class="chart-container">
+          <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" [type]="'line'"></canvas>
+        </div>
+      </div>
+
+      <div class="oxalia-card chart-card flex-1">
+        <div class="card-header-row mb-4">
+          <h3>Répartition des pathologies</h3>
+        </div>
+        <div class="chart-container pie">
+          <!-- Placeholder for Pie Chart or actual Pie chart if configured -->
+           <div class="custom-pie-chart">
+             <div class="pie-segment pne" style="--val: 40"></div>
+             <div class="pie-segment ede" style="--val: 25"></div>
+             <div class="pie-segment ate" style="--val: 15"></div>
+             <div class="pie-segment car" style="--val: 10"></div>
+             <div class="pie-segment oth" style="--val: 10"></div>
+           </div>
+           <div class="pie-legend mt-4">
+             <div class="legend-item"><span class="dot pne"></span> Pneumonia 40%</div>
+             <div class="legend-item"><span class="dot ede"></span> Edema 25%</div>
+             <div class="legend-item"><span class="dot ate"></span> Atelectasis 15%</div>
+             <div class="legend-item"><span class="dot car"></span> Cardiomegaly 10%</div>
+             <div class="legend-item"><span class="dot oth"></span> Autres 10%</div>
+           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row: Activity -->
+    <div class="activity-row mt-4">
+      <div class="oxalia-card">
+        <h3>Activité récente</h3>
+        <div class="activity-list mt-4">
+          <div class="activity-item" *ngFor="let i of [1,2,3,4]">
+            <div class="activity-dot" [class.new]="i===1"></div>
+            <div class="activity-text">
+              <span class="activity-title">{{ i === 1 ? 'Nouveau médecin inscrit' : (i === 2 ? 'Analyse terminée' : 'Rapport validé') }}</span>
+              <span class="activity-meta">{{ i === 1 ? 'Dr. Claire Moreau' : (i === 2 ? 'Technicien Lucas' : 'Dr. Martin Dubois') }} • 12/05/2024 10:30</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Users View (Simplified for Redesign) -->
+  <div class="users-view" *ngIf="activeView === 'USERS'">
+    <div class="oxalia-card">
+      <div class="card-header-row mb-4">
+        <h3>Gestion des utilisateurs</h3>
+        <button class="btn-oxalia btn-oxalia-primary btn-sm" (click)="openAddForm()">
+          <i class="fas fa-plus"></i> Ajouter un utilisateur
+        </button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="oxalia-table">
+          <thead>
+            <tr>
+              <th>Utilisateur</th>
+              <th>Rôle</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>
+                <div class="patient-cell">
+                  <div class="patient-avatar">{{ user.prenom[0] }}{{ user.nom[0] }}</div>
+                  <div class="patient-info">
+                    <span class="patient-name">{{ user.prenom }} {{ user.nom }}</span>
+                    <span class="patient-meta">{{ user.email }}</span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="oxalia-badge" [ngClass]="{
+                  'badge-primary': user.role === 'ADMIN',
+                  'badge-success': user.role === 'MEDECIN',
+                  'badge-warning': user.role === 'TECHNICIEN'
+                }">{{ roleLabels[user.role] }}</span>
+              </td>
+              <td>
+                <div class="status-indicator">
+                  <span class="dot active"></span>
+                  <span>Actif</span>
+                </div>
+              </td>
+              <td>
+                <div class="action-btns">
+                  <button class="btn-icon" (click)="editUser(user)"><i class="fas fa-edit"></i></button>
+                  <button class="btn-icon danger" (click)="deleteUser(user.id)"><i class="fas fa-trash-alt"></i></button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Form Overlay -->
+  <div class="oxalia-overlay" *ngIf="showUserForm">
+    <div class="oxalia-modal">
+      <div class="modal-header">
+        <h3>{{ editingUser ? 'Modifier Profil' : 'Nouvel Utilisateur' }}</h3>
+        <button class="btn-close" (click)="cancelForm()"><i class="fas fa-times"></i></button>
+      </div>
+      <form [formGroup]="userForm" (ngSubmit)="saveUser()" class="oxalia-form p-4">
+        <div class="form-row mb-3">
+          <div class="form-group flex-1">
+            <label>Prénom</label>
+            <input type="text" formControlName="prenom" class="oxalia-input" placeholder="Prénom">
+          </div>
+          <div class="form-group flex-1">
+            <label>Nom</label>
+            <input type="text" formControlName="nom" class="oxalia-input" placeholder="Nom">
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label>Email professionnel</label>
+          <input type="email" formControlName="email" class="oxalia-input" placeholder="email@oxalia.com">
+        </div>
+        <div class="form-group mb-3">
+          <label>Rôle</label>
+          <select formControlName="role" class="oxalia-input">
+            <option *ngFor="let role of roles" [value]="role">{{ roleLabels[role] }}</option>
+          </select>
+        </div>
+        <div class="form-group mb-4" *ngIf="!editingUser">
+          <label>Mot de passe temporaire</label>
+          <input type="password" formControlName="password" class="oxalia-input" placeholder="••••••••">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-oxalia btn-oxalia-ghost" (click)="cancelForm()">Annuler</button>
+          <button type="submit" class="btn-oxalia btn-oxalia-primary" [disabled]="userForm.invalid">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

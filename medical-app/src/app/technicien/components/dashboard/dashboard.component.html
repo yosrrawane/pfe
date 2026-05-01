@@ -1,0 +1,165 @@
+<div class="technicien-dashboard animate-fade">
+  <!-- Page Header -->
+  <header class="page-header mb-4">
+    <div class="header-left">
+      <h1 class="page-title">Dashboard Technicien</h1>
+      <p class="page-subtitle">Importation et préparation des examens radiologiques.</p>
+    </div>
+  </header>
+
+  <!-- Summary Stats -->
+  <div class="stats-grid mb-5">
+    <div class="oxalia-card stat-card">
+      <div class="stat-icon blue"><i class="fas fa-file-upload"></i></div>
+      <div class="stat-details">
+        <span class="stat-value">15</span>
+        <span class="stat-label">Analyses aujourd'hui</span>
+      </div>
+    </div>
+    <div class="oxalia-card stat-card">
+      <div class="stat-icon orange"><i class="fas fa-hourglass-half"></i></div>
+      <div class="stat-details">
+        <span class="stat-value">7</span>
+        <span class="stat-label">En attente de validation</span>
+      </div>
+    </div>
+    <div class="oxalia-card stat-card">
+      <div class="stat-icon purple"><i class="fas fa-microscope"></i></div>
+      <div class="stat-details">
+        <span class="stat-value">210</span>
+        <span class="stat-label">Analyses ce mois</span>
+      </div>
+    </div>
+    <div class="oxalia-card stat-card">
+      <div class="stat-icon green"><i class="fas fa-chart-line"></i></div>
+      <div class="stat-details">
+        <span class="stat-value">92%</span>
+        <span class="stat-label">Taux de succès IA</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="technicien-layout">
+    <!-- Left: Form & Upload Section -->
+    <div class="upload-section">
+      <div class="oxalia-card">
+        <h3>Préparation du Dossier Patient</h3>
+        
+        <div class="patient-form mt-4">
+          <div class="form-row d-flex gap-3 mb-3">
+            <div class="form-group flex-2">
+              <label>ID Patient</label>
+              <input type="text" [(ngModel)]="patientId" class="oxalia-input" placeholder="Ex: PAT-12345">
+            </div>
+            <div class="form-group flex-1">
+              <label>Âge</label>
+              <input type="number" [(ngModel)]="age" class="oxalia-input" placeholder="25">
+            </div>
+            <div class="form-group flex-1">
+              <label>Sexe</label>
+              <select [(ngModel)]="sexe" class="oxalia-input">
+                <option value="Homme">Homme</option>
+                <option value="Femme">Femme</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row d-flex gap-3 mb-3">
+            <div class="form-group flex-1">
+              <label>Poids (kg)</label>
+              <input type="number" [(ngModel)]="poids" class="oxalia-input" placeholder="70">
+            </div>
+            <div class="form-group flex-1">
+              <label>Taille (cm)</label>
+              <input type="number" [(ngModel)]="taille" class="oxalia-input" placeholder="175">
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label>Antécédents / Notes Cliniques</label>
+            <textarea [(ngModel)]="antecedents" class="oxalia-input" rows="2" placeholder="Ex: Fumeur, Diabète..."></textarea>
+          </div>
+        </div>
+
+        <div class="dual-upload-grid mt-4">
+          <div class="upload-box" (click)="faceInput.click()" [class.active]="selectedFileFace">
+            <input type="file" #faceInput (change)="onFileSelected($event, 'FACE')" hidden accept="image/*">
+            <div class="upload-placeholder" *ngIf="!previewFace">
+              <i class="fas fa-id-badge"></i>
+              <span>Vue FACE (Frontale)</span>
+              <p class="small text-muted">Obligatoire pour l'IA</p>
+            </div>
+            <img *ngIf="previewFace" [src]="previewFace" class="img-preview">
+            <div class="quality-badge" *ngIf="previewFace">
+               <i class="fas fa-check-circle"></i> Qualité: Optimale
+            </div>
+          </div>
+
+          <div class="upload-box" (click)="profilInput.click()" [class.active]="selectedFileProfil">
+            <input type="file" #profilInput (change)="onFileSelected($event, 'PROFIL')" hidden accept="image/*">
+            <div class="upload-placeholder" *ngIf="!previewProfil">
+              <i class="fas fa-user"></i>
+              <span>Vue PROFIL (Latérale)</span>
+              <p class="small text-muted">Usage clinique uniquement</p>
+            </div>
+            <img *ngIf="previewProfil" [src]="previewProfil" class="img-preview">
+          </div>
+        </div>
+
+        <div class="upload-actions mt-4">
+          <div class="simulation-toggle mb-3">
+            <div class="toggle-info">
+              <span class="label">Mode Démonstration</span>
+              <span class="desc">Simuler une réponse IA instantanée</span>
+            </div>
+            <label class="oxalia-switch">
+              <input type="checkbox" [(ngModel)]="isMockMode">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <button class="btn-oxalia btn-oxalia-primary w-100" (click)="launchAnalysis()"
+            [disabled]="isProcessing || !isFormValid">
+            <i class="fas fa-brain" *ngIf="!isProcessing"></i>
+            <span *ngIf="!isProcessing">Lancer l'analyse Oxalia</span>
+            <span *ngIf="isProcessing">Traitement en cours...</span>
+          </button>
+
+          <button class="btn-oxalia btn-oxalia-ghost w-100 mt-2" (click)='resetForm()' *ngIf="!isProcessing">
+            Réinitialiser
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Recent Activity -->
+    <div class="activity-section">
+      <div class="oxalia-card">
+        <div class="card-header-row mb-4">
+          <h3>Derniers Dossiers Créés</h3>
+        </div>
+
+        <div class="recent-list d-flex flex-col gap-3">
+          <div class="recent-item d-flex align-center justify-between p-3 border-bottom" *ngFor="let i of [1,2,3,4,5]"
+            style="border-bottom: 1px solid var(--oxalia-border);">
+            <div class="d-flex align-center gap-3">
+              <div class="patient-icon-circle">
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="p-text d-flex flex-col">
+                <span class="p-id font-bold text-main" style="font-size: 0.95rem;">Patient #PAT-00{{i}}</span>
+                <span class="p-meta text-muted" style="font-size: 0.8rem;">Dossier archivé</span>
+              </div>
+            </div>
+            <div class="item-meta">
+              <span class="date text-muted" style="font-size: 0.85rem;">{{ today | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-4 p-3 bg-light rounded text-center">
+          <p class="small text-muted"><i class="fas fa-info-circle"></i> En tant que technicien, vous préparez les dossiers pour les médecins. Les résultats d'analyses ne sont visibles que par le personnel médical autorisé.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

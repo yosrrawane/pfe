@@ -1,0 +1,76 @@
+<div class="login-wrapper">
+  <!-- Left Side: Branding & Illustration -->
+  <div class="auth-illustration">
+    <div class="illustration-content animate-slide">
+      <div class="auth-logo">
+        <div class="logo-icon"><i class="fas fa-lungs"></i></div>
+        <div class="logo-text">
+          <span class="brand-name">PulmoDiag</span>
+          <span class="brand-sub">Aide intelligente au diagnostic des pathologies thoraciques</span>
+        </div>
+      </div>
+      <div class="illustration-main">
+        <div class="ai-orb"></div>
+        <!-- You can add a generate_image here if needed, but the mockup has a simple abstract look -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side: Login Form -->
+  <div class="auth-form-container">
+    <div class="form-card">
+      <div class="form-header">
+        <h1>Se connecter</h1>
+        <p>Entrez vos accès professionnels</p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="oxalia-form">
+        <div class="form-group mb-4">
+          <label for="email">Email professionnel</label>
+          <div class="input-with-icon">
+            <i class="far fa-envelope"></i>
+            <input type="email" id="email" formControlName="email" class="oxalia-input" placeholder="votre.email@etablissement.com">
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <div class="label-row">
+            <label for="password">Mot de passe</label>
+            <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+          </div>
+          <div class="input-with-icon">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" formControlName="password" class="oxalia-input" placeholder="••••••••">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-oxalia btn-oxalia-primary w-100" [disabled]="loginForm.invalid || isLoading">
+          {{ isLoading ? 'Connexion en cours...' : 'Se connecter' }}
+        </button>
+
+        <div class="divider">
+          <span>Accès rapides (Démo)</span>
+        </div>
+
+        <div class="actor-shortcuts">
+          <button type="button" class="btn-actor" (click)="fillCredentials('tech@oxalia.com', 'technicien')">
+            <i class="fas fa-user-cog"></i>
+            <span>Technicien</span>
+          </button>
+          <button type="button" class="btn-actor" (click)="fillCredentials('medecin@oxalia.com', 'medecin')">
+            <i class="fas fa-user-md"></i>
+            <span>Médecin</span>
+          </button>
+          <button type="button" class="btn-actor" (click)="fillCredentials('admin@oxalia.com', 'admin')">
+            <i class="fas fa-user-shield"></i>
+            <span>Admin</span>
+          </button>
+        </div>
+      </form>
+    </div>
+    
+    <footer class="auth-footer">
+      <p>© 2025 PulmoDiag. Plateforme certifiée IA Santé.</p>
+    </footer>
+  </div>
+</div>

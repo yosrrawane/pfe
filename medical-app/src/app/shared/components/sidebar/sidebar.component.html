@@ -1,0 +1,44 @@
+<aside class="medai-sidebar">
+  <div class="sidebar-logo mb-5">
+    <div class="logo-icon-container">
+      <i class="fas fa-hand-holding-medical"></i>
+    </div>
+    <span class="logo-text">MedAI</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <!-- Menu Dynamique basé sur le rôle -->
+    <div class="nav-section">
+      <span class="nav-section-title">MENU PRINCIPAL</span>
+      <a *ngFor="let item of filteredMenu" 
+         [routerLink]="item.link" 
+         routerLinkActive="active" 
+         class="nav-item">
+        <i class="fas" [ngClass]="{
+          'fa-th-large': item.icon === 'dashboard',
+          'fa-user-injured': item.icon === 'medical_services',
+          'fa-upload': item.icon === 'upload_file',
+          'fa-users': item.icon === 'group',
+          'fa-history': item.icon === 'history',
+          'fa-cog': item.icon === 'settings'
+        }"></i>
+        <span>{{ item.title }}</span>
+        <!-- Exemple de badge pour les analyses en attente -->
+        <span class="badge-red" *ngIf="item.title === 'Console (Médecin)'">8</span>
+      </a>
+    </div>
+
+    <div class="nav-section">
+      <span class="nav-section-title">COMPTE</span>
+      <a (click)="logout()" class="nav-item logout-item">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Déconnexion</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <span class="copyright">© 2024 MedAI</span>
+    <span class="version">Version 1.0.0</span>
+  </div>
+</aside>

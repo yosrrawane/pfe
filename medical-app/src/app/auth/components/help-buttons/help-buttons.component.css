@@ -1,0 +1,100 @@
+.help-page {
+  min-height: 100vh;
+  background: #05060b;
+  color: #e2e8f0;
+  padding: 1.5rem;
+}
+
+.help-header {
+  max-width: 1000px;
+  margin: 0 auto 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.help-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.header-actions a,
+.theme-toggle {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  color: #cbd5e1;
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.help-grid {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.help-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.help-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.help-card p {
+  margin: 0 0 0.8rem;
+  color: #94a3b8;
+}
+
+.help-card ul {
+  margin: 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.help-page.light-mode {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.help-page.light-mode .help-card {
+  background: #fff;
+}
+
+.help-page.light-mode .help-card p {
+  color: #475569;
+}
+
+.help-page.light-mode .header-actions a,
+.help-page.light-mode .theme-toggle {
+  color: #334155;
+}
+
+@media (max-width: 900px) {
+  .help-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .help-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+

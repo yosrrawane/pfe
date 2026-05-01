@@ -1,0 +1,194 @@
+<div class="medecin-dashboard animate-fade">
+  
+  <!-- HEADER SECTION -->
+  <header class="console-header mb-5">
+    <div class="header-content">
+      <h1 class="page-title">{{ selectedAnalyse ? 'Analyse du patient - #' + selectedAnalyse.patientId : 'Console de Radiologie' }}</h1>
+      <p class="page-subtitle">{{ selectedAnalyse ? 'Interprétation des images et validation du diagnostic' : 'Gestion des examens et validation clinique assistée par IA' }}</p>
+    </div>
+  </header>
+
+  <!-- IF NO ANALYSIS SELECTED: SHOW LIST VIEW -->
+  <div class="list-view-container" *ngIf="!selectedAnalyse">
+    <div class="stats-grid mb-5">
+      <div class="stat-card-mini animate-slide-up" style="animation-delay: 0.1s">
+        <div class="stat-icon-bg red"><i class="fas fa-clock"></i></div>
+        <div class="stat-info">
+          <span class="val">{{ pendingAnalyses.length }}</span>
+          <span class="lab">En attente</span>
+        </div>
+      </div>
+      <div class="stat-card-mini animate-slide-up" style="animation-delay: 0.2s">
+        <div class="stat-icon-bg green"><i class="fas fa-check-double"></i></div>
+        <div class="stat-info">
+          <span class="val">{{ doctorStats.validatedToday }}</span>
+          <span class="lab">Validés aujourd'hui</span>
+        </div>
+      </div>
+      <div class="stat-card-mini animate-slide-up" style="animation-delay: 0.3s">
+        <div class="stat-icon-bg blue"><i class="fas fa-database"></i></div>
+        <div class="stat-info">
+          <span class="val">{{ pendingAnalyses.length + historyAnalyses.length }}</span>
+          <span class="lab">Total examens</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="oxalia-card queue-card">
+      <div class="card-header-flex mb-4">
+        <div class="tabs-modern">
+          <button [class.active]="activeTab === 'PENDING'" (click)="switchTab('PENDING')">À traiter</button>
+          <button [class.active]="activeTab === 'HISTORY'" (click)="switchTab('HISTORY')">Historique</button>
+        </div>
+        <div class="search-filter-box">
+          <i class="fas fa-search"></i>
+          <input type="text" [(ngModel)]="searchTerm" placeholder="Rechercher...">
+        </div>
+      </div>
+
+      <table class="medai-pro-table">
+        <thead>
+          <tr>
+            <th>PATIENT</th>
+            <th>DATE</th>
+            <th>PRÉDICTION IA</th>
+            <th>CONFIANCE</th>
+            <th>STATUT</th>
+            <th class="text-right">ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let a of (activeTab === 'PENDING' ? pendingAnalyses : historyAnalyses)" class="table-row-hover">
+            <td>
+              <div class="patient-cell">
+                <div class="p-avatar">{{ a.patientId.substring(0, 2) }}</div>
+                <div class="p-info"><span class="p-id">#{{ a.patientId }}</span><span class="p-meta">{{ a.age }} ans • {{ a.sexe }}</span></div>
+              </div>
+            </td>
+            <td>{{ a.dateAnalyse | date:'dd/MM/yyyy • HH:mm' }}</td>
+            <td><span class="patho-badge">{{ a.pathologies?.[0]?.nom || 'Normal' }}</span></td>
+            <td>{{ a.scoreConfianceGlobal }}%</td>
+            <td><span class="status-pill" [ngClass]="a.statutValidation === 'VALIDE' ? 'status-green' : 'status-orange'">{{ a.statutValidation === 'VALIDE' ? 'Validé' : 'À traiter' }}</span></td>
+            <td class="text-right">
+              <button class="btn-action-sm" (click)="viewAnalyseDetails(a)">Analyser</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- IF ANALYSIS SELECTED: SHOW COMPLETE MEDAI DETAILED VIEW -->
+  <div class="detailed-view-container" *ngIf="selectedAnalyse">
+    <div class="top-nav-bar mb-4">
+      <button class="btn-back" (click)="selectedAnalyse = null"><i class="fas fa-arrow-left"></i> Retour à la liste</button>
+    </div>
+
+    <!-- Patient ID Card -->
+    <div class="oxalia-card patient-id-card mb-4">
+      <div class="d-flex align-center justify-between w-100">
+        <div class="d-flex align-center gap-4">
+          <div class="patient-avatar-circle"><i class="fas fa-user"></i></div>
+          <div class="id-group">
+            <span class="label">ID Patient</span>
+            <span class="value">{{ selectedAnalyse.patientId }}</span>
+          </div>
+          <div class="id-group border-left">
+            <span class="label">Âge</span>
+            <span class="value">{{ selectedAnalyse.age }} ans</span>
+          </div>
+          <div class="id-group border-left">
+            <span class="label">Sexe</span>
+            <span class="value">{{ selectedAnalyse.sexe === 'Homme' ? 'Masculin' : 'Féminin' }}</span>
+          </div>
+          <div class="id-group border-left">
+            <span class="label">Date d'examen</span>
+            <span class="value">{{ selectedAnalyse.dateAnalyse | date:'dd MMMM yyyy • HH:mm' }}</span>
+          </div>
+        </div>
+        <div class="status-badge-gold"><span class="main">ANALYSEE</span><span class="sub">En attente de validation</span></div>
+      </div>
+    </div>
+
+    <!-- Grid: Images (Face/Profil) + AI Results -->
+    <div class="dashboard-grid-middle mb-4">
+      <div class="oxalia-card image-card-pro">
+        <div class="card-header-status"><div class="title-with-icon"><i class="fas fa-check-circle text-success"></i><span>Radiographie frontale (PA)</span></div></div>
+        <div class="image-viewer-container">
+          <div class="viewer-main" [style.filter]="'brightness(' + brightness + '%) contrast(' + contrast + '%)' + (invert ? ' invert(1)' : '')">
+            <img [src]="selectedAnalyse.imageFaceUrl">
+            <div class="heatmap-overlay" *ngIf="showHeatmap && selectedAnalyse.heatmapBase64"><img [src]="'data:image/png;base64,' + selectedAnalyse.heatmapBase64"></div>
+          </div>
+          <div class="viewer-toolbar">
+            <button (click)="brightness = brightness + 10" title="Luminosité"><i class="fas fa-sun"></i></button>
+            <button (click)="invert = !invert" title="Inverser"><i class="fas fa-adjust"></i></button>
+            <button class="heatmap-btn" [class.active]="showHeatmap" (click)="showHeatmap = !showHeatmap">
+              <i class="fas fa-layer-group"></i> {{ showHeatmap ? 'Masquer Heatmap' : 'Afficher Heatmap' }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="oxalia-card image-card-pro">
+        <div class="card-header-status"><div class="title-with-icon"><i class="fas fa-check-circle text-success"></i><span>Radiographie latérale</span></div></div>
+        <div class="image-viewer-container">
+          <div class="viewer-main" [style.filter]="'brightness(' + brightness + '%) contrast(' + contrast + '%)' + (invert ? ' invert(1)' : '')">
+            <img [src]="selectedAnalyse.imageProfilUrl">
+          </div>
+          <div class="viewer-toolbar">
+            <button (click)="brightness = brightness + 10"><i class="fas fa-sun"></i></button>
+            <button (click)="invert = !invert"><i class="fas fa-adjust"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="oxalia-card ai-results-card">
+        <div class="card-header-row"><div class="title-with-icon"><i class="fas fa-brain text-primary"></i><span>Résultats de l'IA</span></div></div>
+        <div class="pathologies-pro-list">
+          <div class="patho-row" *ngFor="let p of selectedAnalyse.pathologies; let i = index">
+            <span class="patho-name">{{ p.nom }}</span>
+            <div class="patho-bar-container"><div class="patho-bar-fill" [style.width]="p.probabilite + '%'" [ngClass]="'color-' + (i % 5)"></div></div>
+            <span class="patho-percent">{{ p.probabilite }}%</span>
+          </div>
+        </div>
+        <div class="ai-info-box mt-4"><i class="fas fa-info-circle"></i><p>L'IA fournit une aide à la décision médicale.</p></div>
+      </div>
+    </div>
+
+    <!-- Bottom Sections -->
+    <div class="dashboard-grid-bottom">
+      <div class="oxalia-card">
+        <div class="card-header-row mb-3"><div class="title-with-icon"><i class="fas fa-stethoscope text-primary"></i><span>Informations cliniques</span></div></div>
+        <div class="clinical-layout">
+          <div class="symptoms-col">
+            <label class="section-label">Symptômes</label>
+            <div class="checkbox-group"><label><input type="checkbox" [(ngModel)]="toux"> Toux</label><label><input type="checkbox" [(ngModel)]="fievre"> Fièvre</label><label><input type="checkbox" [(ngModel)]="douleurThoracique"> Douleur</label></div>
+          </div>
+          <div class="exam-col">
+            <div class="input-group"><label>Auscultation</label><select class="oxalia-input" [(ngModel)]="auscultation"><option value="Crépitants basaux bilatéraux">Crépitants</option><option value="Normal">Normal</option></select></div>
+            <div class="input-group mt-2"><label>Notes</label><textarea class="oxalia-input" rows="3" [(ngModel)]="evaluationComment"></textarea></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="oxalia-card">
+        <div class="card-header-row mb-3"><div class="title-with-icon"><i class="fas fa-clipboard-check text-primary"></i><span>Diagnostic final</span></div></div>
+        <div class="diagnostic-form">
+          <div class="radio-group mb-3"><label><input type="radio" name="d" [value]="false" [(ngModel)]="isCorrectionMode"> Confirmer l'IA</label><label><input type="radio" name="d" [value]="true" [(ngModel)]="isCorrectionMode"> Modifier</label></div>
+          <div class="input-group"><label>Commentaires</label><textarea class="oxalia-input" rows="5" [(ngModel)]="evaluationComment"></textarea></div>
+        </div>
+      </div>
+
+      <div class="history-actions-col">
+        <div class="oxalia-card mb-4">
+          <div class="card-header-row mb-2"><div class="title-with-icon"><i class="fas fa-history text-primary"></i><span>Historique</span></div></div>
+          <div class="history-table-mini"><div class="history-row-mini"><span>15/03/2024</span><span class="status-tag success">Validé</span></div></div>
+        </div>
+        <div class="actions-vertical-group">
+          <button class="btn-action-pro btn-validate" (click)="validateAnalyse()"><i class="fas fa-check-circle"></i> Valider</button>
+          <button class="btn-action-pro btn-pdf" (click)="exportReportAsPDF()"><i class="fas fa-file-pdf"></i> Rapport PDF</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

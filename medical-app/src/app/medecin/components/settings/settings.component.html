@@ -1,0 +1,62 @@
+<div class="medecin-settings animate-fade">
+  <header class="page-header mb-4">
+    <h1 class="page-title text-primary">⚙️ Preferences</h1>
+    <p class="page-subtitle">Configure automation and AI diagnosis behavior.</p>
+  </header>
+
+  <div class="nexus-card p-5 max-w-2xl mx-auto">
+    <div class="setting-item d-flex justify-between align-center mb-4 pb-3 border-b" style="border-bottom: 1px solid var(--nexus-border);">
+      <div>
+        <h4 class="mb-1 font-bold">Auto-Processing Workflow</h4>
+        <p class="text-muted small">Automatically trigger AI engine once scans are uploaded.</p>
+      </div>
+      <div>
+        <label class="nexus-switch">
+          <input type="checkbox" [(ngModel)]="settings.autoProcess" (change)="saveSettings()">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="setting-item d-flex justify-between align-center mb-4 pb-3 border-b" style="border-bottom: 1px solid var(--nexus-border);">
+      <div>
+        <h4 class="mb-1 font-bold">Auto-Generate Clinical Report</h4>
+        <p class="text-muted small">Generate draft clinical reports directly from top findings.</p>
+      </div>
+      <div>
+        <label class="nexus-switch">
+          <input type="checkbox" [(ngModel)]="settings.autoReport" (change)="saveSettings()">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="setting-item d-flex justify-between align-center mb-4 pb-3 border-b" style="border-bottom: 1px solid var(--nexus-border);">
+      <div>
+        <h4 class="mb-1 font-bold">Enable Heatmap View by Default</h4>
+        <p class="text-muted small">Overlay AI attention heatmaps directly on X-Rays.</p>
+      </div>
+      <div>
+        <label class="nexus-switch">
+          <input type="checkbox" [(ngModel)]="settings.defaultHeatmap" (change)="saveSettings()">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="setting-item d-flex justify-between align-center mb-4">
+      <div>
+        <h4 class="mb-1 font-bold">Default Export Format</h4>
+        <p class="text-muted small">Primary format for saving diagnosis reports offline.</p>
+      </div>
+      <div>
+        <select class="nexus-input" style="width: 150px;" [(ngModel)]="settings.exportFormat" (change)="saveSettings()">
+          <option value="PDF">PDF Report</option>
+          <option value="DICOM">DICOM Header</option>
+          <option value="JSON">JSON File</option>
+        </select>
+      </div>
+    </div>
+    
+  </div>
+</div>

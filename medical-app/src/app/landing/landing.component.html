@@ -1,0 +1,216 @@
+<div class="landing-container">
+  <!-- Navigation -->
+  <nav class="landing-nav">
+    <div class="nav-content">
+      <div class="logo">
+        <span class="logo-icon">O</span>
+        <div class="logo-text">
+          <span class="brand-name">Oxalia</span>
+          <span class="brand-sub">RadioAI</span>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="#features">Fonctionnalités</a>
+        <a href="#why">Pour qui ?</a>
+        <a href="#security">Sécurité</a>
+        <a href="#about">À propos</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn-oxalia btn-oxalia-primary" routerLink="/auth/login">Se connecter</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="badge-primary oxalia-badge mb-3">
+          <i class="fas fa-play-circle"></i> Plateforme de radiologie IA
+        </div>
+        <h1>Diagnostic médical assisté par IA en quelques secondes</h1>
+        <p>Analyse automatique des radiographies thoraciques avec détection multi-pathologies et validation médicale intégrée.</p>
+        <div class="hero-btns mt-4">
+          <button class="btn-oxalia btn-oxalia-primary" routerLink="/auth/login">Tester la démo</button>
+          <button class="btn-oxalia btn-oxalia-outline ml-3">Voir le workflow</button>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="image-wrapper">
+          <img src="assets/images/hero.png" alt="Medical AI Analysis">
+          <div class="floating-results">
+            <div class="result-card">
+              <span class="label">Pneumonia</span>
+              <span class="value">87%</span>
+            </div>
+            <div class="result-card">
+              <span class="label">Edema</span>
+              <span class="value">65%</span>
+            </div>
+            <div class="result-card total">
+              <span class="label">Confiance globale</span>
+              <span class="value">78%</span>
+            </div>
+          </div>
+          <div class="robot-btn">
+            <i class="fas fa-robot"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- How it works -->
+  <section class="workflow-section">
+    <h2 class="text-center mb-5">Comment ça marche ?</h2>
+    <div class="workflow-grid">
+      <div class="workflow-item">
+        <div class="workflow-icon"><i class="fas fa-upload"></i></div>
+        <h3>1. Import image</h3>
+        <p>Le technicien importe la radiographie en quelques secondes.</p>
+      </div>
+      <div class="workflow-arrow"><i class="fas fa-arrow-right"></i></div>
+      <div class="workflow-item">
+        <div class="workflow-icon"><i class="fas fa-brain"></i></div>
+        <h3>2. Analyse IA</h3>
+        <p>Notre IA analyse l'image et détecte automatiquement les pathologies.</p>
+      </div>
+      <div class="workflow-arrow"><i class="fas fa-arrow-right"></i></div>
+      <div class="workflow-item">
+        <div class="workflow-icon"><i class="fas fa-user-md"></i></div>
+        <h3>3. Validation médecin</h3>
+        <p>Le médecin valide ou corrige les résultats proposés par l'IA.</p>
+      </div>
+      <div class="workflow-arrow"><i class="fas fa-arrow-right"></i></div>
+      <div class="workflow-item">
+        <div class="workflow-icon"><i class="fas fa-file-medical"></i></div>
+        <h3>4. Rapport final</h3>
+        <p>Un rapport final validé est généré et archivé en toute sécurité.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="features-section">
+    <h2 class="text-center mb-5">Fonctionnalités clés</h2>
+    <div class="features-grid">
+      <div class="oxalia-card">
+        <div class="feature-icon"><i class="fas fa-microscope"></i></div>
+        <h3>Analyse IA avancée</h3>
+        <ul>
+          <li>Détection multi-pathologies</li>
+          <li>Score de confiance</li>
+          <li>Heatmap explicative</li>
+        </ul>
+      </div>
+      <div class="oxalia-card">
+        <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+        <h3>Validation médicale</h3>
+        <ul>
+          <li>Interface dédiée médecin</li>
+          <li>Correction des prédictions</li>
+          <li>Historique des décisions</li>
+        </ul>
+      </div>
+      <div class="oxalia-card">
+        <div class="feature-icon"><i class="fas fa-exchange-alt"></i></div>
+        <h3>Workflow clinique</h3>
+        <ul>
+          <li>Transmission automatique</li>
+          <li>Suivi des cas patients</li>
+          <li>Communication fluide</li>
+        </ul>
+      </div>
+      <div class="oxalia-card">
+        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+        <h3>Reporting</h3>
+        <ul>
+          <li>Rapport PDF professionnel</li>
+          <li>Archivage sécurisé</li>
+          <li>Accès centralisé</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workflow Actors -->
+  <section class="actors-section text-center">
+    <h2 class="mb-5">Conçu pour chaque acteur de votre workflow</h2>
+    <div class="actors-grid">
+      <div class="actor-card">
+        <div class="actor-img">
+          <i class="fas fa-user-md fa-4x text-primary"></i>
+        </div>
+        <div class="actor-info text-left">
+          <h3>Médecin</h3>
+          <p>Validez les analyses, consultez l'historique et éditez les rapports pour une prise de décision éclairée.</p>
+          <a href="#" class="actor-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="actor-card">
+        <div class="actor-img">
+          <i class="fas fa-desktop fa-4x text-primary"></i>
+        </div>
+        <div class="actor-info text-left">
+          <h3>Technicien</h3>
+          <p>Importez les radiographies, lancez les analyses et suivez l'avancement des résultats.</p>
+          <a href="#" class="actor-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="actor-card">
+        <div class="actor-img">
+          <i class="fas fa-user-shield fa-4x text-primary"></i>
+        </div>
+        <div class="actor-info text-left">
+          <h3>Admin</h3>
+          <p>Gérez les utilisateurs, les rôles et les performances de la plateforme en toute simplicité.</p>
+          <a href="#" class="actor-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Security -->
+  <section id="security" class="security-section">
+    <h2 class="text-center mb-5 text-white">Sécurité et conformité au cœur de notre solution</h2>
+    <div class="security-grid">
+      <div class="security-card">
+        <div class="security-icon"><i class="fas fa-lock"></i></div>
+        <h3>Authentification sécurisée</h3>
+        <p>Accès par rôle et permissions personnalisées.</p>
+      </div>
+      <div class="security-card">
+        <div class="security-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3>Données protégées</h3>
+        <p>Chiffrement des données médicales (TLS, AES-256).</p>
+      </div>
+      <div class="security-card">
+        <div class="security-icon"><i class="fas fa-check-double"></i></div>
+        <h3>Conformité</h3>
+        <p>Respect des standards et réglementations de santé.</p>
+      </div>
+      <div class="security-card">
+        <div class="security-icon"><i class="fas fa-history"></i></div>
+        <h3>Traçabilité</h3>
+        <p>Historique complet des actions et des validations.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <span class="logo-icon">O</span>
+        <span>Oxalia RadioAI</span>
+      </div>
+      <div class="footer-copy">© 2024 Oxalia RadioAI. Tous droits réservés.</div>
+      <div class="footer-links">
+        <a href="#">Confidentialité</a>
+        <a href="#">Mentions légales</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+</div>

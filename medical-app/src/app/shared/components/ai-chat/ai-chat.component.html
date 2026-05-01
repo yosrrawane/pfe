@@ -1,0 +1,51 @@
+<!-- Chat Toggle Button -->
+<div class="chat-toggle-btn" (click)="toggleChat()" [class.open]="isOpen">
+  <i class="fa" [ngClass]="isOpen ? 'fa-times' : 'fa-robot'"></i>
+</div>
+
+<!-- Chat Window -->
+<div class="chat-window shadow-lg" [class.show]="isOpen">
+  <!-- Header -->
+  <div class="chat-header text-white dflex align-items-center">
+    <div class="d-flex align-items-center w-100 p-3" style="background: linear-gradient(135deg, #0d6efd 0%, #00d2ff 100%); border-radius: 12px 12px 0 0;">
+      <i class="fa fa-robot fa-2x me-2"></i>
+      <div style="flex-grow: 1;">
+        <h5 class="mb-0">Oxalia Assist</h5>
+        <small class="opacity-75">Co-pilote IA Médical</small>
+      </div>
+      <button class="btn btn-sm btn-link text-white" (click)="toggleChat()">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Messages Body -->
+  <div class="chat-body p-3" #chatScrollContainer>
+    <div *ngFor="let msg of messages" class="message-wrapper" [class.user]="!msg.isBot" [class.bot]="msg.isBot">
+      <div class="message-bubble shadow-sm">
+        {{ msg.text }}
+      </div>
+      <div class="message-time text-muted small mt-1">
+        {{ msg.timestamp | date:'shortTime' }}
+      </div>
+    </div>
+    
+    <div *ngIf="isTyping" class="message-wrapper bot">
+      <div class="message-bubble typing shadow-sm">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="chat-footer p-2 bg-light border-top">
+    <form (ngSubmit)="sendMessage()" class="d-flex w-100">
+      <input type="text" class="form-control rounded-pill me-2" placeholder="Posez une question..." name="newMessage" [(ngModel)]="newMessage" autocomplete="off" />
+      <button type="submit" class="btn btn-primary rounded-circle send-btn" [disabled]="!newMessage.trim() || isTyping">
+        <i class="fa fa-paper-plane"></i>
+      </button>
+    </form>
+  </div>
+</div>

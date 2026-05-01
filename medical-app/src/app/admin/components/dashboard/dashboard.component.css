@@ -1,0 +1,449 @@
+.admin-dashboard {
+  padding: 1.5rem;
+}
+
+.admin-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Page Header */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--oxalia-heading);
+}
+
+.page-subtitle {
+  color: var(--oxalia-text-muted);
+}
+
+/* Tabs Minimal (Reused from Medecin) */
+.tabs-minimal {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--oxalia-bg);
+  padding: 0.25rem;
+  border-radius: 8px;
+}
+
+.tabs-minimal button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  color: var(--oxalia-text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: var(--oxalia-transition);
+}
+
+.tabs-minimal button.active {
+  background: white;
+  color: var(--oxalia-primary);
+  box-shadow: var(--oxalia-shadow-sm);
+}
+
+/* Stats Cards */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  position: relative;
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.stat-icon.blue { background: var(--oxalia-primary-light); color: var(--oxalia-primary); }
+.stat-icon.green { background: #dcfce7; color: var(--oxalia-success); }
+.stat-icon.purple { background: #f3e8ff; color: #a855f7; }
+.stat-icon.orange { background: #ffedd5; color: var(--oxalia-warning); }
+
+.stat-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--oxalia-heading);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--oxalia-text-muted);
+  margin-top: 0.25rem;
+}
+
+.stat-trend {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.stat-trend.up {
+  color: var(--oxalia-success);
+}
+
+/* Charts Row */
+.charts-row {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.chart-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-2 { flex: 2; }
+.flex-1 { flex: 1; }
+
+.card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chart-period {
+  font-size: 0.8rem;
+  color: var(--oxalia-text-muted);
+  background: var(--oxalia-bg);
+  padding: 0.25rem 0.75rem;
+  border-radius: 99px;
+}
+
+.chart-container {
+  position: relative;
+  height: 250px;
+  width: 100%;
+}
+
+.chart-container.pie {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+}
+
+/* Custom Pie Chart CSS (Fallback/Styling) */
+.custom-pie-chart {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--oxalia-primary) calc(var(--val-1, 40) * 1%),
+    var(--oxalia-accent) 0 calc((var(--val-1, 40) + var(--val-2, 25)) * 1%),
+    #a855f7 0 calc((var(--val-1, 40) + var(--val-2, 25) + var(--val-3, 15)) * 1%),
+    var(--oxalia-warning) 0 calc((var(--val-1, 40) + var(--val-2, 25) + var(--val-3, 15) + var(--val-4, 10)) * 1%),
+    var(--oxalia-border) 0
+  );
+  position: relative;
+}
+
+.custom-pie-chart::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: white;
+  border-radius: 50%;
+}
+
+.pie-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--oxalia-text-muted);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.legend-item .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legend-item .dot.pne { background: var(--oxalia-primary); }
+.legend-item .dot.ede { background: var(--oxalia-accent); }
+.legend-item .dot.ate { background: #a855f7; }
+.legend-item .dot.car { background: var(--oxalia-warning); }
+.legend-item .dot.oth { background: var(--oxalia-border); }
+
+
+/* Activity Row */
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.activity-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--oxalia-border);
+  margin-top: 0.3rem;
+  position: relative;
+}
+
+.activity-dot.new {
+  background: var(--oxalia-primary);
+  box-shadow: 0 0 0 3px var(--oxalia-primary-glow);
+}
+
+.activity-dot:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 20px;
+  background: var(--oxalia-border);
+}
+
+.activity-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.activity-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--oxalia-heading);
+}
+
+.activity-meta {
+  font-size: 0.75rem;
+  color: var(--oxalia-text-muted);
+}
+
+/* Users View */
+.table-responsive {
+  overflow-x: auto;
+}
+
+.oxalia-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.oxalia-table th {
+  padding: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--oxalia-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--oxalia-border);
+}
+
+.oxalia-table td {
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid var(--oxalia-border);
+  vertical-align: middle;
+}
+
+.patient-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.patient-avatar {
+  width: 32px;
+  height: 32px;
+  background: var(--oxalia-primary-light);
+  color: var(--oxalia-primary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.patient-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--oxalia-heading);
+}
+
+.patient-meta {
+  font-size: 0.75rem;
+  color: var(--oxalia-text-muted);
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--oxalia-text-muted);
+}
+
+.status-indicator .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--oxalia-border);
+}
+
+.status-indicator .dot.active {
+  background: var(--oxalia-success);
+}
+
+.action-btns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: var(--oxalia-bg);
+  color: var(--oxalia-text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--oxalia-transition);
+}
+
+.btn-icon:hover {
+  background: var(--oxalia-primary-light);
+  color: var(--oxalia-primary);
+}
+
+.btn-icon.danger:hover {
+  background: #fee2e2;
+  color: var(--oxalia-danger);
+}
+
+/* Overlays / Modals */
+.oxalia-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.oxalia-modal {
+  background: white;
+  border-radius: var(--oxalia-radius-lg);
+  width: 100%;
+  max-width: 500px;
+  box-shadow: var(--oxalia-shadow-premium);
+  overflow: hidden;
+  animation: modal-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--oxalia-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  color: var(--oxalia-text-muted);
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .charts-row {
+    flex-direction: column;
+  }
+}

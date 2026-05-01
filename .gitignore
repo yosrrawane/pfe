@@ -1,0 +1,31 @@
+# IDE
+.idea/
+.vscode/
+
+# Build artifacts
+medical-app/dist/
+medical-app/node_modules/
+medical-core-api/target/
+medical-core-api/.mvn/
+
+# Large Model Files
+medical-ai-service/models/*.pth
+medical-ai-service/models/*.h5
+
+# Logs
+*.log
+medical-core-api/*.txt
+medical-app/*.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+**/__pycache__/
+*.pyc
+venv/
+.env
+
+# Analysis Temp (Heatmaps can be Base64 in JSON, avoid direct large file pushes if any)
+medical-ai-service/temp/
